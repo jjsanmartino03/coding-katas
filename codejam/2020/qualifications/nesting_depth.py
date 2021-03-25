@@ -1,3 +1,10 @@
+"""
+4
+021
+312
+4
+221
+"""
 t = int(input())
 
 for t_case in range(1, t + 1):
@@ -5,23 +12,23 @@ for t_case in range(1, t + 1):
 
     s_digits = list(map(int, s))
     lat_num = 0
-    current_parenthesis_num = 0
+    current_nesting = 0
     result = ""
 
-    for digit in s_digits:
-        if digit:
-            if not result or result[-1] == '0':
-                result += '(' + str(digit)
-            else:
-                result += str(digit)
-        else:
-            if (not result) or (result[-1] == '0'):
-                result += str(digit)
-            else:
-                result += ')' + str(digit)
+    for index, digit in enumerate(s_digits):
+        if current_nesting > digit:
+            result += ')' * (current_nesting - digit)
+            result += str(digit)
+            current_nesting -= current_nesting - digit
+        elif current_nesting == digit:
+            result += str(digit)
+        elif current_nesting < digit:
+            result += '(' * (digit - current_nesting)
+            current_nesting += digit-current_nesting
+            result += str(digit)
 
-    if result[-1] != '0' and result[-1] != ')':
-        result += ')'
+        if index == len(s_digits)-1:
+            result += ')' * current_nesting
+
 
     print(f'Case #{t_case}: {result}')
-
