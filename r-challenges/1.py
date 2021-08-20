@@ -1,5 +1,11 @@
 from pprint import pprint as pp
 
+"""
+Make a snake, as a matrix of size n x n, where 1s represent the snake
+and 0s represent empty spaces. 
+"""
+
+
 def makeFigure(n: int) -> list[list[int]]:
     result = [[0 for i in range(n)] for j in range(n)]
     posible_directions = ['r', 'b', 'l', 't']
